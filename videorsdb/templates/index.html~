@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+{% block propio %}{% endblock %}
+{% block content %}
+
+{{ bienvenido }}
+{% comment %}
+{% if not user.is_authenticated %} 
+  <a href="{% url 'login' %}">Login</a></b></p> <a href="{% url 'registrarse' %}">registrarse</a></b></p>
+{% endif %}
+
+{% if user.is_authenticated %} 
+  <p>{{ bienvenido }}, {{ user.username }}. Gracias por identificarte. <a href="{% url 'logout' %}">Log out</a></b></p>
+{% endif %}
+{{% endcomment %}}
+{% endblock %}
