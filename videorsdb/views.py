@@ -14,8 +14,8 @@ def registro_user(request):
       namefirst = request.POST['namefirst']
       namelast = request.POST['namelast']
       username = request.POST['username']
-      email = request.Post['email']
-      password = request.Post['password']
+      email = request.POST['email']
+      password = request.POST['password']
      
       insert = User.objects.create_user(password=password, username=username, email=email, first_name=namefirst, last_name=namelast)
       insert.save()
