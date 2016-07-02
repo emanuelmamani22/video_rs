@@ -30,5 +30,5 @@ class RegistroUserForm(forms.Form):
        return user_passdos
 
 class login_user(forms.Form):
-     email = forms.CharField(min_length=5)
+     username = forms.CharField(min_length=5)
      password = forms.CharField(min_length=5, widget=forms.PasswordInput())
