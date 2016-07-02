@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
+import magic
 
 class RegistroUserForm(forms.Form):
      namefirst = forms.CharField(min_length=5)
@@ -32,3 +33,14 @@ class RegistroUserForm(forms.Form):
 class login_user(forms.Form):
      username = forms.CharField(min_length=5)
      password = forms.CharField(min_length=5, widget=forms.PasswordInput())
+
+class subirvideo(forms.Form):
+     nombre_video = forms.CharField(min_length=5)
+     archivo_video = forms.FileField()
+
+     def clean_subirvideo(self):
+       file_f = self.cleaned_data['archivo_video']
+       mime = magic.from_buffer(file_f.read(), mime=True)
+       if mime != 'video/mp4':
+          raise forms.ValidationError('Sube un archivo de MP4.')
+       return file_f
