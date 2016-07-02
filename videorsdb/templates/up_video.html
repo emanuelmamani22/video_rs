@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Subir video{% endblock %}
+{% block content %}
+{% if user.is_authenticated %} 
+  <p>Bienvenido, {{ user.username }}. Gracias por identificarte. <a href="{% url 'logout' %}">Log out</a></p>
+
+
+  <h1>Subir video</h1>
+	{% if form.error %} 
+	{% endif %} 
+      <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form }}
+             <input type="submit" value="Enviar">
+      </form>
+{% else %} 
+  <p>Bienvenido, nuevo usuario. Por favor identifícate.</p> 
+{% endif %}
+{% endblock %}
