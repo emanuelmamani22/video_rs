@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^register/$', 'videorsdb.views.registro_user', name='registrarse'),
+    url(r'^login/$', 'videorsdb.views.login_views', name='login'),
+    url(r'^logout/$', 'videorsdb.views.logout_views', name='logout'),
 ]
