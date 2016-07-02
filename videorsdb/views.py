@@ -8,7 +8,7 @@ def index(request):
   return render(request, 'index.html', {'bienvenido':bienvenido})
 
 def registro_user(request):
-  if request.method == 'POST'
+  if request.method == 'POST':
     form = RegistroUserForm(request.POST)
     if form.is_valid():
       namefirst = request.POST['namefirst']
