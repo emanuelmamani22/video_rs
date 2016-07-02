@@ -22,7 +22,7 @@ def registro_user(request):
      
       return redirect('index')
     else :
-      return render(request, 'login.html', {'form': form})
+      return render(request, 'registro.html', {'form': form})
   else :
     form = RegistroUserForm(request.Post)
-    return render(request, 'login.hmtl', {'form':form})
+    return render(request, 'registro.hmtl', {'form':form})
