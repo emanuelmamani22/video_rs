@@ -24,5 +24,5 @@ def registro_user(request):
     else :
       return render(request, 'registro.html', {'form': form})
   else :
-    form = RegistroUserForm(request.Post)
-    return render(request, 'registro.hmtl', {'form':form})
+    form = RegistroUserForm()
+    return render(request, 'registro.html', {'form':form})
