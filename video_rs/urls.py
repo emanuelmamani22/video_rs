@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from videorsdb import views
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -23,4 +25,12 @@ urlpatterns = [
     url(r'^register/$', 'videorsdb.views.registro_user', name='registrarse'),
     url(r'^login/$', 'videorsdb.views.login_views', name='login'),
     url(r'^logout/$', 'videorsdb.views.logout_views', name='logout'),
+    url(r'^uploadvideo/$', 'videorsdb.views.up_video', name='subirvideo'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   ]
