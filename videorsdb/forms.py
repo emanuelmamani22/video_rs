@@ -13,18 +13,18 @@ class RegistroUserForm(forms.Form):
      def clean_username(self):
        user_name = self.cleaned_data['username']
        if User.objects.filter(username=user_name):
-          raise form.ValidationError('Nombre de usuario ya registrado.')
+          raise forms.ValidationError('Nombre de usuario ya registrado.')
        return user_name
        
      def clean_email(self):
        user_email = self.cleaned_data['email']
        if User.objects.filter(email=user_email):
-          raise form.ValidationError('Correo electronico ya registrado.')
+          raise forms.ValidationError('Correo electronico ya registrado.')
        return user_email
 
      def clean_passworddos(self):
        user_pass = self.cleaned_data['password']
        user_passdos = self.cleaned_data['passworddos']
        if user_pass != user_passdos:
-          raise form.ValidationError('Las contrasenias no son iguales.')
+          raise forms.ValidationError('Las contrasenias no son iguales.')
        return user_passdos
