@@ -28,3 +28,7 @@ class RegistroUserForm(forms.Form):
        if user_pass != user_passdos:
           raise forms.ValidationError('Las contrasenias no son iguales.')
        return user_passdos
+
+class login_user(forms.Form):
+     email = forms.CharField(min_length=5)
+     password = forms.CharField(min_length=5, widget=forms.PasswordInput())
