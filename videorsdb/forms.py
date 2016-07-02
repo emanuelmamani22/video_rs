@@ -3,12 +3,12 @@ from django import forms
 from django.contrib.auth.models import User
 
 class RegistroUserForm(forms.Form):
-     namefirst = forsm.ChardField(min_length=5)
-     namelast = forms.ChardField(min_length=5)
-     username = forms.ChardField(min_length=5)
+     namefirst = forms.CharField(min_length=5)
+     namelast = forms.CharField(min_length=5)
+     username = forms.CharField(min_length=5)
      email = forms.EmailField()
-     password = forms.ChardField(min_length=5, widget=forms.PasswordInput())
-     passworddos = forms.ChardField(widget=forms.PasswordInput())
+     password = forms.CharField(min_length=5, widget=forms.PasswordInput())
+     passworddos = forms.CharField(widget=forms.PasswordInput())
 
      def clean_username(self):
        user_name = self.cleaned_data['username']
