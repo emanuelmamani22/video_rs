@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 import magic
+from .funciones import choice_tag
 
 class RegistroUserForm(forms.Form):
      namefirst = forms.CharField(min_length=5)
@@ -37,6 +38,7 @@ class login_user(forms.Form):
 class subirvideo(forms.Form):
      nombre_video = forms.CharField(min_length=5)
      archivo_video = forms.FileField()
+     video_tag = forms.ChoiceField(widget=forms.Select(),choices=choice_tag())
 
      def clean_subirvideo(self):
        file_f = self.cleaned_data['archivo_video']
