@@ -20,6 +20,5 @@ def choice_tag():
   cursor = connection.cursor()
   cursor.execute("""SELECT videorsdb_tagvideo.id_tag, videorsdb_tagvideo.nombre_tag FROM public.videorsdb_tagvideo""")
   row = cursor.fetchall()
-  #choice_field=((str(row[0][0]), row[0][1],), (str(row[1][0], row[1][1],),(str(row[2][0]), row[2][1],),(str(row[3][0]), row[3][1],))
-  CHOICES = (('1', row[0][1],), ('2', row[1][1],),('2', row[2][1],),('2', row[3][1],),('2', row[4][1],),('2', row[5][1],),('2', row[6][1],),('2', row[7][1],),('2', row[8][1],),('2', row[9][1],))
+  CHOICES = (('1', row[0][1],), ('2', row[1][1],),('3', row[2][1],),('4', row[3][1],),('5', row[4][1],),('6', row[5][1],),('7', row[6][1],),('8', row[7][1],),('9', row[8][1],),('10', row[9][1],))
   return CHOICES
