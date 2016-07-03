@@ -1,5 +1,5 @@
 import random
-from .models import DownloadVideo
+from .models import UploadVideo
 
 
 def calcular_codigo():
@@ -10,7 +10,7 @@ def calcular_codigo():
       d=random.randrange(0,64)
       b=b+a[d]
       c=c+1
-    if DownloadVideo.objects.filter(cod_video=b):
+    if UploadVideo.objects.filter(cod_video=b):
        calcular_codigo()
     
     return b

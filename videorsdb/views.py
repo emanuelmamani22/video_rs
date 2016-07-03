@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo
 from django.contrib.auth import authenticate, login, logout
-from .models import DownloadVideo
+from .models import UploadVideo
 from .funciones import calcular_codigo
 # Create your views here.
 
@@ -67,7 +67,7 @@ def up_video(request):
           video_archivo = request.FILES['archivo_video']
           usuario = request.user
           cod = calcular_codigo()
-          video = DownloadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_u=usuario)
+          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_u=usuario)
           video.save()
 
           return HttpResponseRedirect('/')
@@ -81,5 +81,5 @@ def up_video(request):
 
 def watchvideo(request):
     x = request.GET.get('v','')
-    q = DownloadVideo.objects.get(cod_video=x)
+    q = UploadVideo.objects.get(cod_video=x)
     return render(request, 'vervideo.html', {'q':q})

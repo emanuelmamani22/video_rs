@@ -1,5 +1,5 @@
 from django.contrib import admin
-from videorsdb.models import DownloadVideo
+from videorsdb.models import UploadVideo
 
 # Register your models here.
-admin.site.register(DownloadVideo)
+admin.site.register(UploadVideo)
