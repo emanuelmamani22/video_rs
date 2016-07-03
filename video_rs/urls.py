@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^login/$', 'videorsdb.views.login_views', name='login'),
     url(r'^logout/$', 'videorsdb.views.logout_views', name='logout'),
     url(r'^uploadvideo/$', 'videorsdb.views.up_video', name='subirvideo'),
-    url(r'^watch/$', 'videorsdb.views.watchvideo', name='vervideo'),
+    url(r'^watch$', 'videorsdb.views.watchvideo', name='vervideo'),
 ]
 
 if settings.DEBUG:
