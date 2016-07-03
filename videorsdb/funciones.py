@@ -3,20 +3,14 @@ from .models import DownloadVideo
 
 
 def calcular_codigo():
-    l=[['a','A','b','B','c','C'],['d','D','e','E','f','F'],['g','G','h','H','i','I'],['j','J','k','K','l','L'],['m','M','n','N','_','-'],['o','O','p','P','k','K'],['r','R','s','S','t','T'],['u','U','v','V','w','W'],['x','X','y','Y','z','Z'],['1','2','3','4','5','6']]
-    a=random.randrange(10000000000,99999999999)
-    b=str(a)
-    s=''
-    for x in b :
-        n=0
-        i=int(x)
-        while True :
-            if  i == n:
-                r=random.randrange(0,5)
-                s=s+l[i][r]
-                break
-            n=n+1
-    if DownloadVideo.objects.filter(cod_video=s):
+    a=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','_','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','-','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
+    b=''
+    c=0
+    while c < 11 :
+      d=random.randrange(0,64)
+      b=b+a[d]
+      c=c+1
+    if DownloadVideo.objects.filter(cod_video=b):
        calcular_codigo()
     
-    return s
+    return b
