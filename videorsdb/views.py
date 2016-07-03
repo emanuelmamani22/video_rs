@@ -78,3 +78,8 @@ def up_video(request):
     else :
       return HttpResponseRedirect('/login')
     return render(request, 'up_video.html', {'form':form})
+
+def wachtvideo(request):
+    x = request.GET.get('v','')
+    q = DownloadVideo.objects.get(cod_video=x)
+    return render(request, 'vervideo.html', {'q':q})
