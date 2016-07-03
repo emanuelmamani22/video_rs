@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class DownloadVideo(models.Model):
+class UploadVideo(models.Model):
     id_video = models.AutoField(primary_key=True)
     cod_video = models.CharField(max_length=11)
     nombre_video = models.CharField(max_length=100)
