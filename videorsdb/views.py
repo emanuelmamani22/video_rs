@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo
 from django.contrib.auth import authenticate, login, logout
-from .models import UploadVideo
-from .funciones import calcular_codigo
+from .models import UploadVideo, Tagvideo
+from .funciones import calcular_codigo, id_tag
 # Create your views here.
 
 def index(request):
@@ -21,7 +21,7 @@ def registro_user(request):
       username = request.POST['username']
       email = request.POST['email']
       password = request.POST['password']
-     
+
       insert = User.objects.create_user(password=password, username=username, email=email, first_name=namefirst, last_name=namelast)
       insert.save()
      
@@ -65,9 +65,11 @@ def up_video(request):
         if form.is_valid():
           namevideo = request.POST['nombre_video']
           video_archivo = request.FILES['archivo_video']
+          tag_video = request.POST['video_tag']
+          q = Tagvideo.objects.get(id_tag=int(tag_video))
           usuario = request.user
           cod = calcular_codigo()
-          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_u=usuario)
+          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_u=usuario, id_tag=q)
           video.save()
 
           return HttpResponseRedirect('/')
