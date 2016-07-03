@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 class Tagvideo(models.Model):
     id_tag = models.AutoField(primary_key=True)
     nombre_tag = models.CharField(max_length=70)
+    
+    def __unicode__(self):
+       return self.nombre_tag
 
 class UploadVideo(models.Model):
     id_video = models.AutoField(primary_key=True)
