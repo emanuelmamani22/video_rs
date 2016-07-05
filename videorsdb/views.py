@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo
 from django.contrib.auth import authenticate, login, logout
-from .models import UploadVideo, Tagvideo, Perfil
+from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores
 from .funciones import calcular_codigo
 # Create your views here.
 
@@ -67,9 +67,9 @@ def up_video(request):
           video_archivo = request.FILES['archivo_video']
           tag_video = request.POST['video_tag']
           q = Tagvideo.objects.get(id_tag=int(tag_video))
-          usuario = request.user
+          canal = Canal.objects.get(id_u=request.user)
           cod = calcular_codigo()
-          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_u=usuario, id_tag=q)
+          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_c=canal, id_tag=q)
           video.save()
 
           return HttpResponseRedirect('/')
@@ -82,6 +82,29 @@ def up_video(request):
     return render(request, 'up_video.html', {'form':form})
 
 def watchvideo(request):
-      x = request.GET.get('v','')
-      q = UploadVideo.objects.get(cod_video=x)
-      return render(request, 'vervideo.html', {'q':q})
+      if request.method == 'POST':
+        if request.user.is_authenticated():
+          x = request.GET.get('v','')
+          q = UploadVideo.objects.get(cod_video=x)
+          r = Canal.objects.get(id_canal=q.id_c.id_canal)
+          usuario = request.user
+          s = Subcriptores(id_c=r, id_u=usuario)
+          s.save()
+
+          return render(request, 'vervideo.html', {'q':q})
+        else :
+          return HttpResponseRedirect('/login')
+      else :
+        x = request.GET.get('v','')
+        q = UploadVideo.objects.get(cod_video=x)
+        return render(request, 'vervideo.html', {'q':q})
+
+
+
+
+
+
+
+
+
+
