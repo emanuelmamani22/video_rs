@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Ver Video{% endblock %}
 {% block content %}
-		<video controls>
+		<video controls width="320" height="240">
 			<source src="{{ MEDIA_URL }}{{q.video_file}}" type="video/mp4">
 	    </video>
+           <form action="" method="post" enctype="">{% csrf_token %}  
+            <input type="submit" value="Enviar"> 
+        </form>
 {% endblock %}
 

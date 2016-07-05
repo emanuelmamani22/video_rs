@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo
 from django.contrib.auth import authenticate, login, logout
-from .models import UploadVideo, Tagvideo
-from .funciones import calcular_codigo, id_tag
+from .models import UploadVideo, Tagvideo, Perfil
+from .funciones import calcular_codigo
 # Create your views here.
 
 def index(request):
@@ -82,6 +82,6 @@ def up_video(request):
     return render(request, 'up_video.html', {'form':form})
 
 def watchvideo(request):
-    x = request.GET.get('v','')
-    q = UploadVideo.objects.get(cod_video=x)
-    return render(request, 'vervideo.html', {'q':q})
+      x = request.GET.get('v','')
+      q = UploadVideo.objects.get(cod_video=x)
+      return render(request, 'vervideo.html', {'q':q})
