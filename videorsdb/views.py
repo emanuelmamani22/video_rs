@@ -82,21 +82,26 @@ def up_video(request):
     return render(request, 'up_video.html', {'form':form})
 
 def watchvideo(request):
+      x = request.GET.get('v','')
+      q = UploadVideo.objects.get(cod_video=x)
       if request.method == 'POST':
         if request.user.is_authenticated():
-          x = request.GET.get('v','')
-          q = UploadVideo.objects.get(cod_video=x)
+          u = request.user
+          y = User.objects.get(username=u)
           r = Canal.objects.get(id_canal=q.id_c.id_canal)
-          usuario = request.user
-          s = Subcriptores(id_c=r, id_u=usuario)
-          s.save()
+          try :
+             z = Subcriptores.objects.get(id_u=y.id, id_c=r)
+             z.delete()
+             return render(request, 'vervideo.html', {'q':q})
+          except Subcriptores.DoesNotExist:
+             r = Canal.objects.get(id_canal=q.id_c.id_canal)
+             s = Subcriptores(id_c=r, id_u=u)
+             s.save()
 
-          return render(request, 'vervideo.html', {'q':q})
+             return render(request, 'vervideo.html', {'q':q})
         else :
           return HttpResponseRedirect('/login')
       else :
-        x = request.GET.get('v','')
-        q = UploadVideo.objects.get(cod_video=x)
         return render(request, 'vervideo.html', {'q':q})
 
 
