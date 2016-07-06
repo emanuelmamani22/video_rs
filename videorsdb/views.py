@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import RegistroUserForm, login_user, subirvideo
+from .forms import RegistroUserForm, login_user, subirvideo, crear_canal
 from django.contrib.auth import authenticate, login, logout
 from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores
-from .funciones import calcular_codigo
+from .funciones import calcular_codigo, codigo_canal
 # Create your views here.
 
 def index(request):
@@ -58,6 +58,25 @@ def logout_views(request):
     logout(request)    
     return redirect('index')
 
+def cretechanell(request):
+    if request.user.is_authenticated():
+      if request.method == 'POST':
+         form = crear_canal(request.POST)
+         if form.is_valid():
+           nombre_canal = request.POST['nombre_canal']
+           cod = codigo_canal()
+           usuario = request.user
+           canal = Canal(codigo_canal=cod, nombre=nombre_canal, id_u=usuario)
+           canal.save()
+           
+           return HttpResponseRedirect('/')
+         else :
+           return render(request, 'crearcanal.html', {'form':form})
+      else:
+         form = crear_canal()
+         return render(request, 'crearcanal.html', {'form':form})
+    else :
+      return HttpResponseRedirect('/login')
 def up_video(request):
     if request.user.is_authenticated():
       if request.method == 'POST':
