@@ -11,6 +11,7 @@ class Tagvideo(models.Model):
 
 class Canal(models.Model):
     id_canal = models.AutoField(primary_key=True)
+    codigo_canal = models.CharField(blank=True, max_length=20)
     nombre = models.CharField(max_length=70)
     id_u = models.ForeignKey(User)
 
