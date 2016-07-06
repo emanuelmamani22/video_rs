@@ -35,6 +35,9 @@ class login_user(forms.Form):
      username = forms.CharField(min_length=5)
      password = forms.CharField(min_length=5, widget=forms.PasswordInput())
 
+class crear_canal(forms.Form):
+     nombre_canal = forms.CharField(min_length=5)
+
 class subirvideo(forms.Form):
      nombre_video = forms.CharField(min_length=5)
      archivo_video = forms.FileField()
