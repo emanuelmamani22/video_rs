@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{q.nombre}}{% endblock %}
+{% block content %}
+<h1>{{q.nombre}}</h1>
+
+{% if z %} 
+    {% for m in z %} 
+    	{{m}}
+	{% endfor %} 
+{% else %} 
+        Este canal no tiene video
+{% endif %}
+{% endblock %}
