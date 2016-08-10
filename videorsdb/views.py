@@ -127,6 +127,13 @@ def watchvideo(request):
 
 def viewchannel(request, channel):
 	q = Canal.objects.get(codigo_canal=channel)
-	message = None
 	z = UploadVideo.objects.filter(id_c=q.id_canal)
-	return render(request, 'channel.html', {'q':q, 'z':z})
+	if request.user == q.id_u :
+		return render(request, 'channeladmin.html', {'q':q, 'z':z})
+	else :
+		return render(request, 'channel.html', {'q':q, 'z':z})
+
+def deletevideo(request, delete):
+	q = UploadVideo.objects.get(cod_video = delete)
+	q.delete()
+	return HttpResponseRedirect('/')

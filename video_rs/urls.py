@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^watch$', 'videorsdb.views.watchvideo', name='vervideo'),
     url(r'^crearcanal/$', 'videorsdb.views.cretechanell', name='crearcanal'),
     url(r'^canal/(?P<channel>[^/]{20})/$', 'videorsdb.views.viewchannel', name='channel'),
+    url(r'^eliminar/(?P<delete>[^/]{11})/$', 'videorsdb.views.deletevideo', name='delete'),
 ]
 
 if settings.DEBUG:
