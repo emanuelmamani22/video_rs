@@ -15,6 +15,9 @@ class Canal(models.Model):
     nombre = models.CharField(max_length=70)
     id_u = models.ForeignKey(User)
 
+    def __unicode__(self):
+       return self.nombre
+
 class UploadVideo(models.Model):
     id_video = models.AutoField(primary_key=True)
     cod_video = models.CharField(max_length=11)

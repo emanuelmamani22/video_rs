@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^uploadvideo/$', 'videorsdb.views.up_video', name='subirvideo'),
     url(r'^watch$', 'videorsdb.views.watchvideo', name='vervideo'),
     url(r'^crearcanal/$', 'videorsdb.views.cretechanell', name='crearcanal'),
+    url(r'^canal/(?P<channel>[^/]{20})/$', 'videorsdb.views.viewchannel', name='channel'),
 ]
 
 if settings.DEBUG:

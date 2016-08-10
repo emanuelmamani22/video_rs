@@ -125,10 +125,8 @@ def watchvideo(request):
         return render(request, vervideo, {'q':q})
 
 
-
-
-
-
-
-
-
+def viewchannel(request, channel):
+	q = Canal.objects.get(codigo_canal=channel)
+	message = None
+	z = UploadVideo.objects.filter(id_c=q.id_canal)
+	return render(request, 'channel.html', {'q':q, 'z':z})
