@@ -6,6 +6,7 @@ from .forms import RegistroUserForm, login_user, subirvideo, crear_canal
 from django.contrib.auth import authenticate, login, logout
 from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores
 from .funciones import calcular_codigo, codigo_canal
+from django.http import Http404
 # Create your views here.
 
 def index(request):
@@ -131,9 +132,34 @@ def viewchannel(request, channel):
 	if request.user == q.id_u :
 		return render(request, 'channeladmin.html', {'q':q, 'z':z})
 	else :
-		return render(request, 'channel.html', {'q':q, 'z':z})
+		if request.method == 'POST':
+			if request.user.is_authenticated():
+				u = request.user
+				y = User.objects.get(username=u)
+				try :
+					s = Subcriptores.objects.get(id_u=y.id, id_c=q.id_canal)
+					s.delete()
+					return render(request, 'channel.html', {'q':q, 'z':z})
+				except Subcriptores.DoesNotExist:
+					r = Canal.objects.get(id_canal=q.id_canal)
+					s = Subcriptores(id_c=r, id_u=u)
+					s.save()
+
+					return render(request, 'channel.html', {'q':q, 'z':z})
+			else :
+				return HttpResponseRedirect('/login')
+		else :
+			return render(request, 'channel.html', {'q':q, 'z':z})
 
 def deletevideo(request, delete):
-	q = UploadVideo.objects.get(cod_video = delete)
-	q.delete()
-	return HttpResponseRedirect('/')
+	if request.user.is_authenticated():
+		u = request.user
+		m = Canal.objects.get(id_u = u)
+		q = UploadVideo.objects.get(cod_video = delete)
+		if m.id_canal == q.id_c :
+			q.delete()
+			return HttpResponseRedirect('/')
+		else :
+			return HttpResponseRedirect('/login')
+	else :
+		return HttpResponseRedirect('/login')

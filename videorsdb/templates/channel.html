@@ -2,6 +2,9 @@
 {% block title %}{{q.nombre}}{% endblock %}
 {% block content %}
 <h1>{{q.nombre}}</h1>
+<form action="" method="post">{% csrf_token %}
+	<input type="submit" value="Suscribirse">
+</form>
 
 {% if z %} 
     {% for m in z %} 
