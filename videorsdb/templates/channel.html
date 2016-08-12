@@ -7,8 +7,8 @@
 </form>
 
 {% if z %} 
-    {% for m in z %} 
-    	{{m.nombre_video}}
+    {% for m in z %}
+    	<a href="{% url 'vervideo' %}?v={{m.cod_video}}">{{m.nombre_video}}</a><br>
 	{% endfor %} 
 {% else %} 
         Este canal no tiene video

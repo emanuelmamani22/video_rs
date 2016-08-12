@@ -5,7 +5,7 @@
 
 {% if z %} 
     {% for m in z %} 
-    	{{m.nombre_video}} <a href="{% url 'delete' m.cod_video %}">eliminar</a>
+    	{{m.nombre_video}}<a href="{% url 'delete' m.cod_video %}">eliminar</a>
 	{% endfor %} 
 {% else %} 
         Este canal no tiene video

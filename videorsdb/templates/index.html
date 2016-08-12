@@ -9,5 +9,6 @@
 		{% endif %}
 		{% if user.is_authenticated %}
 		<p> hola</p><a href="{% url 'logout' %}">logout</a>
+		<a href="{% url 'subirvideo' %}">Subir video</a>
 		{% endif %}
 {% endblock %}
