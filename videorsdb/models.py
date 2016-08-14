@@ -37,3 +37,9 @@ class Subcriptores(models.Model):
     id_subs = models.AutoField(primary_key=True)
     id_c = models.ForeignKey(Canal)
     id_u = models.ForeignKey(User)
+
+class Comentario(models.Model):
+    id_comentario = models.AutoField(primary_key=True)
+    comentario_text = models.TextField()
+    id_v = models.ForeignKey(UploadVideo)
+    id_user = models.ForeignKey(User)
