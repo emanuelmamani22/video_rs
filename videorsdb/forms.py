@@ -49,3 +49,6 @@ class subirvideo(forms.Form):
        if mime != 'video/mp4':
           raise forms.ValidationError('Sube un archivo de MP4.')
        return file_f
+
+class comentario_form(forms.Form):
+  comentario = forms.CharField(widget=forms.Textarea)

@@ -4,8 +4,20 @@
 		<video controls width="320" height="240">
 			<source src="{{ MEDIA_URL }}{{q.video_file}}" type="video/mp4">
 	    </video>
-           <form action="" method="post" enctype="">{% csrf_token %}  
-            <input type="submit" value="Suscribirse"> 
+        <form action="" method="post" enctype="">{% csrf_token %}  
+            <input type="submit" value="Suscribirse" name="boton_form_2"> 
         </form>
+        {% if messages %} 
+		{% endif %}
+        <form action="" method="post" enctype="">{% csrf_token %} 
+            {{ form.as_table }} 
+            <input type="submit" value="Enviar" name="boton_form_1"> 
+        </form>
+        {% if c %}
+        	{% for coments in c %}
+        		{{coments.comentario_text}} <br>
+        	{% endfor %}
+        	{% else %}
+        	Este video no tiene comentarios
+        {% endif %}
 {% endblock %}
-
