@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo, crear_canal, comentario_form
 from django.contrib.auth import authenticate, login, logout
-from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores, Comentario
-from .funciones import calcular_codigo, codigo_canal
+from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores, Comentario, Likeanddislike
+from .funciones import calcular_codigo, codigo_canal, likesave, likeanddislikedelete, dislikesave
 from django.http import Http404
 # Create your views here.
 
@@ -103,6 +103,7 @@ def up_video(request):
 
 def watchvideo(request):
 	u = request.user
+	y = User.objects.get(username=u)
 	vervideo = 'vervideo.html'
 	x = request.GET.get('v','')
 	q = UploadVideo.objects.get(cod_video=x)
@@ -120,18 +121,41 @@ def watchvideo(request):
 				else :
 					return render(request, vervideo, {'q':q, 'form':form,'c':c})
 			if 'boton_form_2' in request.POST :
-				y = User.objects.get(username=u)
 				r = Canal.objects.get(id_canal=q.id_c.id_canal)
 				try :
-					z = Subcriptores.objects.get(id_u=y.id, id_c=r)
-					z.delete()
- 					return render(request, vervideo, {'q':q, 'form':form,'c':c})
+					subs = Subcriptores.objects.get(id_u=y.id, id_c=r)
+					subs.delete()
 				except Subcriptores.DoesNotExist:
-					r = Canal.objects.get(id_canal=q.id_c.id_canal)
-					s = Subcriptores(id_c=r, id_u=u)
-					s.save()
+					subs = Subcriptores(id_c=r, id_u=u)
+					subs.save()
 
-					return render(request, vervideo, {'q':q, 'form':form,'c':c})
+				return render(request, vervideo, {'q':q, 'form':form,'c':c})
+			if 'boton_form_3' in request.POST :
+				try :
+					if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=True, nomegusta=False):
+						likeanddislikedelete(q, y)
+	 			except Likeanddislike.DoesNotExist:
+	 				try :
+	 					likeanddislikedelete(q, y)
+	 					likesave(q, y)
+					except Likeanddislike.DoesNotExist:
+						likesave(q, y)
+				contarlike = Likeanddislike.objects.filter(id_v=q, megusta=True).count()
+				contardislike = Likeanddislike.objects.filter(id_v=q, nomegusta=True).count()
+				return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike})
+ 			if 'boton_form_4' in request.POST :
+ 				try :
+	 				if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=False, nomegusta=True):
+	 					likeanddislikedelete(q, y)
+	 			except Likeanddislike.DoesNotExist:
+	 				try :
+		 				likeanddislikedelete(q, y)
+		 				dislikesave(q, y)
+					except Likeanddislike.DoesNotExist:
+						dislikesave(q, y)
+				contarlike = Likeanddislike.objects.filter(id_v=q, megusta=True).count()
+				contardislike = Likeanddislike.objects.filter(id_v=q, nomegusta=True).count()
+				return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike})
 		else :
 			return HttpResponseRedirect('/login')
 	else :

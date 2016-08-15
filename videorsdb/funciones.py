@@ -1,5 +1,5 @@
 import random
-from .models import UploadVideo, Tagvideo, Canal
+from .models import UploadVideo, Tagvideo, Canal, Likeanddislike
 
 def calcular_codigo():
     a=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','_','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','-','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
@@ -32,3 +32,15 @@ def choice_tag():
   row = cursor.fetchall()
   CHOICES = (('1', row[0][1],), ('2', row[1][1],),('3', row[2][1],),('4', row[3][1],),('5', row[4][1],),('6', row[5][1],),('7', row[6][1],),('8', row[7][1],),('9', row[8][1],),('10', row[9][1],))
   return CHOICES
+
+def likesave(q, y):
+  l = Likeanddislike(megusta=True, nomegusta=False, id_v=q, id_u=y)
+  l.save()
+
+def likeanddislikedelete(q, y):
+  ld = Likeanddislike.objects.get(id_v=q, id_u=y)
+  ld.delete()
+
+def dislikesave(q, y):
+  ds = Likeanddislike(megusta=False, nomegusta=True, id_v=q, id_u=y)
+  ds.save()

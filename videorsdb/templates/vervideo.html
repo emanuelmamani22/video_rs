@@ -4,8 +4,23 @@
 		<video controls width="320" height="240">
 			<source src="{{ MEDIA_URL }}{{q.video_file}}" type="video/mp4">
 	    </video>
+        {% if contarlike %}
+        <h1 display='inline-block'>Me gusta {{contarlike}}</h1>
+        {% else %}
+        <h1>Me gusta 0</h1>
+        {% endif %}
+
+        {% if contardislike %}
+        <h1 display='inline-block'>No me gusta {{contardislike}}</h1>
+        {% else %}
+        <h1>No me gusta 0</h1>
+        {% endif %}
         <form action="" method="post" enctype="">{% csrf_token %}  
             <input type="submit" value="Suscribirse" name="boton_form_2"> 
+        </form>
+        <form action="" method="post" enctype="">{% csrf_token %}  
+            <input type="submit" value="Me gusta" name="boton_form_3">
+            <input type="submit" value="No me gusta" name="boton_form_4">
         </form>
         {% if messages %} 
 		{% endif %}
