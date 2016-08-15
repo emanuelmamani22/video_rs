@@ -43,3 +43,10 @@ class Comentario(models.Model):
     comentario_text = models.TextField()
     id_v = models.ForeignKey(UploadVideo)
     id_user = models.ForeignKey(User)
+
+class Likeanddislike(models.Model):
+    id_likeanddislike = models.AutoField(primary_key=True)
+    megusta = models.BooleanField(default=False)
+    nomegusta = models.BooleanField(default=False)
+    id_v = models.ForeignKey(UploadVideo)
+    id_u = models.ForeignKey(User)
