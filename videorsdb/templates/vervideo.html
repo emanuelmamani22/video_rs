@@ -16,7 +16,8 @@
         <h1>No me gusta 0</h1>
         {% endif %}
         <form action="" method="post" enctype="">{% csrf_token %}  
-            <input type="submit" value="Suscribirse" name="boton_form_2"> 
+            <input type="button" value="Suscribirse" name="boton_form_2" onclick="subscribirse()">
+            <div id="message"></div>
         </form>
         <form action="" method="post" enctype="">{% csrf_token %}  
             <input type="submit" value="Me gusta" name="boton_form_3">
@@ -35,4 +36,22 @@
         	{% else %}
         	Este video no tiene comentarios
         {% endif %}
+{% endblock %}
+{% block contentjs %}
+    function subscribirse(){
+        $.ajax({         
+            url:'ajaxsubs/',
+            type : 'POST',
+            data : {'video_cod' : '{{q.cod_video}}', csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
+            success : function(data){
+                if(data){
+                    location.href = data
+                }else{
+                alert('hola')
+                }
+                
+            }
+        });
+    }
+
 {% endblock %}

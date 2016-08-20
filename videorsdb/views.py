@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo, crear_canal, comentario_form
@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores, Comentario, Likeanddislike
 from .funciones import calcular_codigo, codigo_canal, likesave, likeanddislikedelete, dislikesave
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
@@ -103,7 +104,6 @@ def up_video(request):
 
 def watchvideo(request):
 	u = request.user
-	y = User.objects.get(username=u)
 	vervideo = 'vervideo.html'
 	x = request.GET.get('v','')
 	q = UploadVideo.objects.get(cod_video=x)
@@ -111,6 +111,7 @@ def watchvideo(request):
 	form = comentario_form()
 	if request.method == 'POST':
 		if request.user.is_authenticated():
+			y = User.objects.get(username=u)
 			if 'boton_form_1' in request.POST :
 				form = comentario_form(request.POST)
 				if form.is_valid():
@@ -120,16 +121,6 @@ def watchvideo(request):
 					return HttpResponseRedirect('/')
 				else :
 					return render(request, vervideo, {'q':q, 'form':form,'c':c})
-			if 'boton_form_2' in request.POST :
-				r = Canal.objects.get(id_canal=q.id_c.id_canal)
-				try :
-					subs = Subcriptores.objects.get(id_u=y.id, id_c=r)
-					subs.delete()
-				except Subcriptores.DoesNotExist:
-					subs = Subcriptores(id_c=r, id_u=u)
-					subs.save()
-
-				return render(request, vervideo, {'q':q, 'form':form,'c':c})
 			if 'boton_form_3' in request.POST :
 				try :
 					if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=True, nomegusta=False):
@@ -199,3 +190,25 @@ def deletevideo(request, delete):
 			return HttpResponseRedirect('/login')
 	else :
 		return HttpResponseRedirect('/login')
+
+def subs_ajax(request):
+	x = request.POST['video_cod']
+	q = UploadVideo.objects.get(cod_video=x)
+	r = Canal.objects.get(id_canal=q.id_c.id_canal)
+	if request.method == 'POST':
+			if request.user.is_authenticated():
+				u = request.user
+				y = User.objects.get(username=u)
+				try :
+					subs = Subcriptores.objects.get(id_u=y.id, id_c=r)
+					subs.delete()
+					return HttpResponse()
+				except Subcriptores.DoesNotExist:
+					subs = Subcriptores(id_c=r, id_u=u)
+					subs.save()
+
+					return HttpResponse()
+			else :
+				return HttpResponse('/login')
+	else :
+		return HttpResponseRedirect('/')
