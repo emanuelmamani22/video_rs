@@ -109,48 +109,9 @@ def watchvideo(request):
 	q = UploadVideo.objects.get(cod_video=x)
 	c = Comentario.objects.filter(id_v=q.id_video)
 	form = comentario_form()
-	if request.method == 'POST':
-		if request.user.is_authenticated():
-			y = User.objects.get(username=u)
-			if 'boton_form_1' in request.POST :
-				form = comentario_form(request.POST)
-				if form.is_valid():
-					comentario = request.POST['comentario']
-					coments = Comentario(comentario_text = comentario, id_v=q, id_user=u)
-					coments.save()
-					return HttpResponseRedirect('/')
-				else :
-					return render(request, vervideo, {'q':q, 'form':form,'c':c})
-			if 'boton_form_3' in request.POST :
-				try :
-					if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=True, nomegusta=False):
-						likeanddislikedelete(q, y)
-	 			except Likeanddislike.DoesNotExist:
-	 				try :
-	 					likeanddislikedelete(q, y)
-	 					likesave(q, y)
-					except Likeanddislike.DoesNotExist:
-						likesave(q, y)
-				contarlike = Likeanddislike.objects.filter(id_v=q, megusta=True).count()
-				contardislike = Likeanddislike.objects.filter(id_v=q, nomegusta=True).count()
-				return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike})
- 			if 'boton_form_4' in request.POST :
- 				try :
-	 				if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=False, nomegusta=True):
-	 					likeanddislikedelete(q, y)
-	 			except Likeanddislike.DoesNotExist:
-	 				try :
-		 				likeanddislikedelete(q, y)
-		 				dislikesave(q, y)
-					except Likeanddislike.DoesNotExist:
-						dislikesave(q, y)
-				contarlike = Likeanddislike.objects.filter(id_v=q, megusta=True).count()
-				contardislike = Likeanddislike.objects.filter(id_v=q, nomegusta=True).count()
-				return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike})
-		else :
-			return HttpResponseRedirect('/login')
-	else :
-		return render(request, vervideo, {'q':q, 'form':form,'c':c})
+	contarlike = Likeanddislike.objects.filter(id_v=q, megusta=True).count()
+	contardislike = Likeanddislike.objects.filter(id_v=q, nomegusta=True).count()
+	return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike})
 
 
 def viewchannel(request, channel):
@@ -206,6 +167,72 @@ def subs_ajax(request):
 				except Subcriptores.DoesNotExist:
 					subs = Subcriptores(id_c=r, id_u=u)
 					subs.save()
+
+					return HttpResponse()
+			else :
+				return HttpResponse('/login')
+	else :
+		return HttpResponseRedirect('/')
+
+def comentar_ajax(request):
+	x = request.POST['video_cod']
+	c = request.POST['comentario']
+	q = UploadVideo.objects.get(cod_video=x)
+	if request.method == 'POST':
+			if request.user.is_authenticated():
+				u = request.user
+				y = User.objects.get(username=u)
+				coments = Comentario(comentario_text = c, id_v=q, id_user=u)
+				coments.save()
+				return HttpResponse()
+			else :
+				return HttpResponse('/login')
+	else :
+		return HttpResponseRedirect('/')
+
+def megusta_ajax(request):
+	x = request.POST['video_cod']
+	q = UploadVideo.objects.get(cod_video=x)
+	if request.method == 'POST':
+			if request.user.is_authenticated():
+				try :
+					u = request.user
+					y = User.objects.get(username=u)
+					if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=True, nomegusta=False):
+						likeanddislikedelete(q, y)
+
+						return HttpResponse()
+	 			except Likeanddislike.DoesNotExist:
+	 				try :
+	 					likeanddislikedelete(q, y)
+	 					likesave(q, y)
+					except Likeanddislike.DoesNotExist:
+						likesave(q, y)
+
+					return HttpResponse()
+			else :
+				return HttpResponse('/login')
+	else :
+		return HttpResponseRedirect('/')
+
+def nomegusta_ajax(request):
+	x = request.POST['video_cod']
+	q = UploadVideo.objects.get(cod_video=x)
+	if request.method == 'POST':
+			if request.user.is_authenticated():
+				try :
+					u = request.user
+					y = User.objects.get(username=u)
+					if Likeanddislike.objects.get(id_v=q, id_u=y, megusta=False, nomegusta=True):
+						likeanddislikedelete(q, y)
+
+						return HttpResponse()
+	 			except Likeanddislike.DoesNotExist:
+	 				try :
+	 					likeanddislikedelete(q, y)
+	 					dislikesave(q, y)
+					except Likeanddislike.DoesNotExist:
+						dislikesave(q, y)
 
 					return HttpResponse()
 			else :

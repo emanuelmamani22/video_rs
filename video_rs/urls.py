@@ -31,6 +31,9 @@ urlpatterns = [
     url(r'^canal/(?P<channel>[^/]{20})/$', 'videorsdb.views.viewchannel', name='channel'),
     url(r'^eliminar/(?P<delete>[^/]{11})/$', 'videorsdb.views.deletevideo', name='delete'),
     url(r'^ajaxsubs/$', 'videorsdb.views.subs_ajax', name='subsajax'),
+    url(r'^ajaxcomentar/$', 'videorsdb.views.comentar_ajax', name='comentarajax'),
+    url(r'^ajaxmegusta/$', 'videorsdb.views.megusta_ajax', name='megustaajax'),
+    url(r'^ajaxnomegusta/$', 'videorsdb.views.nomegusta_ajax', name='nomegustaajax'),
 ]
 
 if settings.DEBUG:

@@ -4,6 +4,7 @@
 		<video controls width="320" height="240">
 			<source src="{{ MEDIA_URL }}{{q.video_file}}" type="video/mp4">
 	    </video>
+        <h3>{{q.nombre_video}}</h3>
         {% if contarlike %}
         <h1 display='inline-block'>Me gusta {{contarlike}}</h1>
         {% else %}
@@ -20,38 +21,37 @@
             <div id="message"></div>
         </form>
         <form action="" method="post" enctype="">{% csrf_token %}  
-            <input type="submit" value="Me gusta" name="boton_form_3">
-            <input type="submit" value="No me gusta" name="boton_form_4">
+            <input type="button" value="Me gusta" name="boton_form_3" onclick="megusta()">
+            <input type="button" value="No me gusta" name="boton_form_4" onclick="nomegusta()">
         </form>
         {% if messages %} 
 		{% endif %}
         <form action="" method="post" enctype="">{% csrf_token %} 
             {{ form.as_table }} 
-            <input type="submit" value="Enviar" name="boton_form_1"> 
+            <input type="button" value="Enviar" name="boton_form_1" onclick="comentar()"> 
         </form>
         {% if c %}
         	{% for coments in c %}
-        		{{coments.comentario_text}} <br>
+        		{{coments.comentario_text}} ----> {{coments.id_user.username}} <br>
         	{% endfor %}
         	{% else %}
         	Este video no tiene comentarios
         {% endif %}
 {% endblock %}
 {% block contentjs %}
+    metodo_post='POST'
+    django_token = $('input[name=csrfmiddlewaretoken]').val()
     function subscribirse(){
-        $.ajax({         
-            url:'ajaxsubs/',
-            type : 'POST',
-            data : {'video_cod' : '{{q.cod_video}}', csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
-            success : function(data){
-                if(data){
-                    location.href = data
-                }else{
-                alert('hola')
-                }
-                
-            }
-        });
+        full_ajax('ajaxsubs/', metodo_post,{'video_cod' : '{{q.cod_video}}', csrfmiddlewaretoken: django_token })
+        }
+    function comentar(){
+        full_ajax('ajaxcomentar/', metodo_post,{'video_cod' : '{{q.cod_video}}', 'comentario': $('#id_comentario').val(), csrfmiddlewaretoken: django_token})
+        }
+    function megusta(){
+        full_ajax('ajaxmegusta/', metodo_post,{'video_cod' : '{{q.cod_video}}', csrfmiddlewaretoken: django_token})
+    }
+    function nomegusta(){
+        full_ajax('ajaxnomegusta/', metodo_post,{'video_cod' : '{{q.cod_video}}', csrfmiddlewaretoken: django_token})
     }
 
 {% endblock %}

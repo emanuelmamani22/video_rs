@@ -39,16 +39,16 @@ class crear_canal(forms.Form):
      nombre_canal = forms.CharField(min_length=5)
 
 class subirvideo(forms.Form):
-     nombre_video = forms.CharField(min_length=5)
-     archivo_video = forms.FileField()
-     video_tag = forms.ChoiceField(widget=forms.Select(),choices=choice_tag())
+    nombre_video = forms.CharField(min_length=5)
+    archivo_video = forms.FileField()
+    video_tag = forms.ChoiceField(widget=forms.Select(),choices=choice_tag())
 
-     def clean_subirvideo(self):
-       file_f = self.cleaned_data['archivo_video']
-       mime = magic.from_buffer(file_f.read(), mime=True)
-       if mime != 'video/mp4':
-          raise forms.ValidationError('Sube un archivo de MP4.')
-       return file_f
+    def clean_archivo_video(self):
+      file_f = self.cleaned_data['archivo_video']
+      mime = magic.from_buffer(file_f.read(), mime=True)
+      if mime != 'video/mp4':
+        raise forms.ValidationError('Sube un archivo de MP4.')
+      return file_f
 
 class comentario_form(forms.Form):
   comentario = forms.CharField(widget=forms.Textarea)
