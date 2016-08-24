@@ -5,28 +5,16 @@ import subprocess32 as sp
 import json
 from ffprobe import FFProbe
 
-def calcular_codigo():
+def calcular_codigo(contar):
     a=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','_','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','-','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
     b=''
     c=0
-    while c < 11 :
+    while c < contar :
       d=random.randrange(0,64)
       b=b+a[d]
       c=c+1
       if UploadVideo.objects.filter(cod_video=b):
-        calcular_codigo()
-    return b
-
-def codigo_canal():
-    a=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','_','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','-','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
-    b=''
-    c=0
-    while c < 20 :
-      d=random.randrange(0,64)
-      b=b+a[d]
-      c=c+1
-      if Canal.objects.filter(codigo_canal=b):
-        codigo_canal()
+        calcular_codigo(contar)
     return b
 
 def choice_tag():

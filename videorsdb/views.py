@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo, crear_canal, comentario_form
 from django.contrib.auth import authenticate, login, logout
 from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores, Comentario, Likeanddislike
-from .funciones import calcular_codigo, codigo_canal, likesave, likeanddislikedelete, dislikesave
+from .funciones import calcular_codigo, likesave, likeanddislikedelete, dislikesave
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -66,7 +66,7 @@ def cretechanell(request):
          form = crear_canal(request.POST)
          if form.is_valid():
            nombre_canal = request.POST['nombre_canal']
-           cod = codigo_canal()
+           cod = calcular_codigo(20)
            usuario = request.user
            canal = Canal(codigo_canal=cod, nombre=nombre_canal, id_u=usuario)
            canal.save()
@@ -89,7 +89,7 @@ def up_video(request):
           tag_video = request.POST['video_tag']
           q = Tagvideo.objects.get(id_tag=int(tag_video))
           canal = Canal.objects.get(id_u=request.user)
-          cod = calcular_codigo()
+          cod = calcular_codigo(11)
           video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_c=canal, id_tag=q)
           video.save()
 
