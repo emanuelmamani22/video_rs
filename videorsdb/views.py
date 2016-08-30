@@ -11,8 +11,8 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-  bienvenido = 'Bienvenido'
-  return render(request, 'index.html', {'bienvenido':bienvenido})
+	q = UploadVideo.objects.filter(id_tag=1).order_by('?')[:4]
+	return render(request, 'index.html', {'q':q})
 
 def registro_user(request):
   if request.method == 'POST':
