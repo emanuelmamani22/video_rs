@@ -3,16 +3,17 @@
 {% block propio %}{% endblock %}
 {% block content %}
 
-{{ bienvenido }}
+
 {% if not user.is_authenticated %}
 		<a href="{% url 'login' %}">Login</a><br>
 		{% endif %}
 		{% if user.is_authenticated %}
-		<p> hola</p><a href="{% url 'logout' %}">logout</a>
+		<a href="{% url 'logout' %}">logout</a>
 		<a href="{% url 'subirvideo' %}">Subir video</a>
 {% endif %}
 	
-	{% for query in q %}
-		{{ query.nombre_video }}<br>
+
+	{% for query in  q %}
+	<h1>{{ query.nombre_video }}</h1><br>
 	{% endfor %}
 {% endblock %}

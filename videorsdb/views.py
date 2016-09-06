@@ -239,3 +239,8 @@ def nomegusta_ajax(request):
 				return HttpResponse('/login')
 	else :
 		return HttpResponseRedirect('/')
+
+def resultado(request):
+	x = request.GET.get('search_query','')
+	q = UploadVideo.objects.filter(nombre_video__contains=x)
+	return render(request, 'resultado.html', {'q':q})

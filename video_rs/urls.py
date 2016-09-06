@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^ajaxcomentar/$', 'videorsdb.views.comentar_ajax', name='comentarajax'),
     url(r'^ajaxmegusta/$', 'videorsdb.views.megusta_ajax', name='megustaajax'),
     url(r'^ajaxnomegusta/$', 'videorsdb.views.nomegusta_ajax', name='nomegustaajax'),
+    url(r'^result$', 'videorsdb.views.resultado', name='resultado'),
 ]
 
 if settings.DEBUG:
