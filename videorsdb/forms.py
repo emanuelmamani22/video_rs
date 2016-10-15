@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 import magic
 from .funciones import choice_tag
+from django.utils.dateparse import parse_time
+from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
 
 class RegistroUserForm(forms.Form):
      namefirst = forms.CharField(min_length=5)
@@ -48,7 +50,15 @@ class subirvideo(forms.Form):
       mime = magic.from_buffer(file_f.read(), mime=True)
       if mime != 'video/mp4':
         raise forms.ValidationError('Sube un archivo de MP4.')
-      return file_f
+
+      #a = UploadedFile(file_f)
+      #print a._get_name()
+      #print a.content_type
+      #b = TemporaryUploadedFile(a.name, a.content_type, a.size, a.charset)
+      #print b.temporary_file_path()
+      #print parse_time(b.temporary_file_path())
+      #raw_input("Pulsa una tecla para continuar...") 
+      #return file_f
 
 class comentario_form(forms.Form):
   comentario = forms.CharField(widget=forms.Textarea)

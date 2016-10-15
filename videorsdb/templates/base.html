@@ -3,16 +3,44 @@
 <html>
 	<meta charset="utf-8"/>
 	<head>
+		<!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<title>{% block title %}{% endblock %}</title>
-		
+		<link rel="stylesheet" href="{% static "css/style.css" %}">
 	</head>
 	<body>
-		<form action="{% url 'resultado' %}" method="get">
-			<input type="text" name="search_query">
-			<button type="submit">Buscar</button>
-		</form>
+		<nav >
+	    	<div class="nav-wrapper">
+		     	 <a href="#" class="brand-logo">Logo</a>
+			     <ul id="nav-mobile" class="right hide-on-med-and-down">
+			     		<li>
+				     	 	<form action="{% url 'resultado' %}" method="get">
+				        		<div class="input-field">
+						          	<input id="search" type="search" name="search_query" required>
+						          	<label for="search"><i class="material-icons">search</i></label>
+						          	<i class="material-icons">close</i>
+				        		</div>
+				      	 	</form>
+		      	 	    </li>
+		      	 	    {% if not user.is_authenticated %}
+				        	<li><a href="{% url 'login' %}">Login</a></li>
+				        	<li><a href="{% url 'subirvideo' %}">Subir Video</a></li>
+				        {% endif %}
+				        {% if user.is_authenticated %}
+				        	<li><a href="{% url 'logout' %}">Components</a></li>
+				        	<li><a href="{% url 'subirvideo' %}">Components</a></li>
+				        {% endif %}
+		         </ul>
+	    	</div>
+      	</nav>
 		{% block content %}{% endblock %}
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 		<script type="text/javascript">{% block contentjs %}{% endblock %}</script>
 		<script src="{% static "jqueryajax.js" %}"></script>​
 		<script src="{% static "fullajax.js" %}"></script>​
