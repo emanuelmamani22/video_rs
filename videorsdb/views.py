@@ -8,11 +8,13 @@ from .models import UploadVideo, Tagvideo, Perfil, Canal, Subcriptores, Comentar
 from .funciones import calcular_codigo, likesave, likeanddislikedelete, dislikesave
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+import random
 # Create your views here.
 
 def index(request):
-	q = UploadVideo.objects.filter(id_tag=1).order_by('?')[:4]
-	return render(request, 'index.html', {'q':q})
+	r=random.randrange(1,10)
+	q = UploadVideo.objects.filter(id_tag=r).order_by('?')[:4]
+	return render(request, 'index.html', {'q':q, 'hola':'hola'})
 
 def registro_user(request):
   if request.method == 'POST':
