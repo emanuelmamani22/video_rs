@@ -14,6 +14,10 @@ import random
 def index(request):
 	r=random.randrange(1,10)
 	q = UploadVideo.objects.filter(id_tag=r).order_by('?')[:4]
+	if request.user.is_authenticated():
+		user = request.user
+		ureco = Likeanddislike.objects.filter(id_u=user.id, megusta=True).order_by('?')[:4]
+		return render(request, 'index.html', {'q':q, 'hola':'hola', 'ureco':ureco})
 	return render(request, 'index.html', {'q':q, 'hola':'hola'})
 
 def registro_user(request):
