@@ -12,6 +12,11 @@ from django.contrib.auth.decorators import login_required
 import random
 
 #Procesadres de Contexto
+def subcripciones_user(request):
+	u = request.user
+	sub_ctx = Subcriptores.objects.filter(id_u=u.id)
+	return {'sub_ctx':sub_ctx,}
+
 def canal_user(request):
 	user_ctx = request.user
 	user_canal = Canal.objects.get(id_u=user_ctx.id)
@@ -27,7 +32,7 @@ def index(request):
 	if request.user.is_authenticated():
 		user = request.user
 		ureco = Likeanddislike.objects.filter(id_u=user.id, megusta=True).order_by('?')[:4]
-		return render(request, 'index.html', {'q':q, 'hola':'hola','name_q':name_q, 'ureco':ureco}, context_instance=RequestContext(request, processors=[canal_user]))
+		return render(request, 'index.html', {'q':q, 'hola':'hola','name_q':name_q, 'ureco':ureco}, context_instance=RequestContext(request, processors=[canal_user, subcripciones_user]))
 	return render(request, 'index.html', {'q':q,'name_q':name_q, 'hola':'hola'},)
 
 def registro_user(request):
