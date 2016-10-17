@@ -23,11 +23,12 @@ def canal_user(request):
 def index(request):
 	r=random.randrange(1,10)
 	q = UploadVideo.objects.filter(id_tag=r).order_by('?')[:4]
+	name_q = q[0].id_tag.nombre_tag 
 	if request.user.is_authenticated():
 		user = request.user
 		ureco = Likeanddislike.objects.filter(id_u=user.id, megusta=True).order_by('?')[:4]
-		return render(request, 'index.html', {'q':q, 'hola':'hola', 'ureco':ureco}, context_instance=RequestContext(request, processors=[canal_user]))
-	return render(request, 'index.html', {'q':q, 'hola':'hola'},)
+		return render(request, 'index.html', {'q':q, 'hola':'hola','name_q':name_q, 'ureco':ureco}, context_instance=RequestContext(request, processors=[canal_user]))
+	return render(request, 'index.html', {'q':q,'name_q':name_q, 'hola':'hola'},)
 
 def registro_user(request):
   if request.method == 'POST':
