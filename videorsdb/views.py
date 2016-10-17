@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
+from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistroUserForm, login_user, subirvideo, crear_canal, comentario_form
@@ -9,6 +10,14 @@ from .funciones import calcular_codigo, likesave, likeanddislikedelete, dislikes
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import random
+
+#Procesadres de Contexto
+def canal_user(request):
+	user_ctx = request.user
+	user_canal = Canal.objects.get(id_u=user_ctx.id)
+	return {'user_canal': user_canal, 'user_ctx':user_ctx}
+
+
 # Create your views here.
 
 def index(request):
@@ -17,8 +26,8 @@ def index(request):
 	if request.user.is_authenticated():
 		user = request.user
 		ureco = Likeanddislike.objects.filter(id_u=user.id, megusta=True).order_by('?')[:4]
-		return render(request, 'index.html', {'q':q, 'hola':'hola', 'ureco':ureco})
-	return render(request, 'index.html', {'q':q, 'hola':'hola'})
+		return render(request, 'index.html', {'q':q, 'hola':'hola', 'ureco':ureco}, context_instance=RequestContext(request, processors=[canal_user]))
+	return render(request, 'index.html', {'q':q, 'hola':'hola'},)
 
 def registro_user(request):
   if request.method == 'POST':
