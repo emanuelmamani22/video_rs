@@ -61,4 +61,4 @@ class subirvideo(forms.Form):
       #return file_f
 
 class comentario_form(forms.Form):
-  comentario = forms.CharField(widget=forms.Textarea)
+  comentario = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea', 'placeholder':'Escribe un comentario'}))
