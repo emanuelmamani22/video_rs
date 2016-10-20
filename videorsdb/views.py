@@ -22,7 +22,10 @@ def canal_user(request):
 	user_canal = Canal.objects.get(id_u=user_ctx.id)
 	return {'user_canal': user_canal, 'user_ctx':user_ctx}
 
-
+def sugerencias(request):
+	r=random.randrange(1,10)
+	s1 = UploadVideo.objects.filter(id_tag=r).order_by('?')[:4]
+	return {'s1':s1,}
 # Create your views here.
 
 def index(request):
@@ -132,7 +135,7 @@ def watchvideo(request):
 	form = comentario_form()
 	contarlike = Likeanddislike.objects.filter(id_v=q, megusta=True).count()
 	contardislike = Likeanddislike.objects.filter(id_v=q, nomegusta=True).count()
-	return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike})
+	return render(request, vervideo, {'q':q, 'form':form,'c':c, 'contarlike':contarlike, 'contardislike':contardislike}, context_instance=RequestContext(request, processors=[sugerencias,]))
 
 
 def viewchannel(request, channel):

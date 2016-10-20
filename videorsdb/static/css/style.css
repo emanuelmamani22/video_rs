@@ -1,3 +1,6 @@
+body{
+	background-color: #f1f1f1;
+}
 #search{
 	margin: 0 0 0 0;
 }
@@ -22,7 +25,7 @@
 	position: relative;
 	width: 100%;
 }
-.margin-li{
+.margin-li, .margin-info{
 	margin-bottom: 1px;
 }
 ul{
@@ -59,4 +62,139 @@ h2{
 }
 .margin-not-auth{
 	margin: 0 0 0 0;
+}
+
+/* vervideo.html */
+.main-video{
+	position: relative;
+	left: 0;
+	width: 99.5%;
+	margin-top: 4px;
+	margin-left: 4px;
+}
+.container-video{
+	position: absolute;
+	width: 850px;
+	height: 880px;
+	left: 0;
+}
+.video-player{
+	position: absolute;
+	width: 850px;
+	height: 480px;
+	left: 0;
+}
+.aside-right{
+	position: absolute;
+	right: 0;
+	width: 420px;
+}
+.video-info{
+	position: absolute;
+	width: 850px;
+	height: 150px;
+	top: 485px;
+	left: 0;
+}
+.size-video{
+	position: relative;
+	width: 850px;
+}
+.aside-right > .collection, .margin-horizontal-card{
+	margin: 0 0 0 0
+}
+.margin-horizontal-card{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+.absolute{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+.size-card-img > img{
+	height: 78px;
+	width: 80px !important;
+} 
+.size-card-img{
+	width: 80px;
+	height: 78px;
+}
+.margin-img{
+	position: absolute;
+	margin-top: 10px !important;
+}
+.margin-info{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.name-canal{
+	position: absolute;
+	left: 115px;
+	margin-top: 12px !important;
+}
+.subscribirse{
+	position: absolute;
+	left: 115px;
+	margin-top: 50px !important;
+}
+.vote{
+	position: absolute;
+	right: 5px;
+	margin-top: 50px !important;
+}
+.cant-vote-dislike{
+	position: absolute;
+	right: 5px;
+	margin-top: 28px !important
+}
+.cant-vote-like{
+	position: absolute;
+	right: 88px;
+	margin-top: 28px !important
+}
+.container-comment{
+	position: absolute;
+	width: 850px;
+	top: 650px;
+	left: 0;
+	background-color: white;
+}
+.margin-textarea-row, .margin-user-link{
+	margin: 0 0 0 0;
+}
+button[name="Comentar"]{
+	position: relative;
+	margin-bottom: 5px;
+	margin-left: 700px;
+}
+.list-comment{
+	position: absolute;
+	background-color: white;
+	width: 850px;
+	top: 820px
+}
+.row-padding{
+	padding-top: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.col-margin{
+	margin-bottom: 3px;
+}
+p{
+	width: 100%;
+	margin: 0 0 0 0;
+	white-space: normal;
+	word-break: break-all;
+}
+.avatar{
+	width: 50px;
+	height: 50px;
+}
+.img-avatar{
+	width: 100%;
+	height: 100%;
 }
