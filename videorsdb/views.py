@@ -142,7 +142,7 @@ def viewchannel(request, channel):
 	q = Canal.objects.get(codigo_canal=channel)
 	z = UploadVideo.objects.filter(id_c=q.id_canal)
 	if request.user == q.id_u :
-		return render(request, 'channeladmin.html', {'q':q, 'z':z})
+		return render(request, 'channeladmin.html', {'q':q, 'z':z}, context_instance=RequestContext(request, processors=[canal_user, subcripciones_user]))
 	else :
 		if request.method == 'POST':
 			if request.user.is_authenticated():
