@@ -7,12 +7,12 @@ from django.utils.dateparse import parse_time
 from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
 
 class RegistroUserForm(forms.Form):
-     namefirst = forms.CharField(min_length=5)
-     namelast = forms.CharField(min_length=5)
-     username = forms.CharField(min_length=5)
-     email = forms.EmailField()
-     password = forms.CharField(min_length=5, widget=forms.PasswordInput())
-     passworddos = forms.CharField(widget=forms.PasswordInput())
+     namefirst = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'first_name'}))
+     namelast = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'last_name'}))
+     username = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'username'}))
+     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'validate', 'id': 'email'}))
+     password = forms.CharField(min_length=5, widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'password'}))
+     passworddos = forms.CharField(widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'passworddos'}))
 
      def clean_username(self):
        user_name = self.cleaned_data['username']
