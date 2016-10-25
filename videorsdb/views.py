@@ -19,8 +19,12 @@ def subcripciones_user(request):
 
 def canal_user(request):
 	user_ctx = request.user
-	user_canal = Canal.objects.get(id_u=user_ctx.id)
-	return {'user_canal': user_canal, 'user_ctx':user_ctx}
+	try :
+		user_canal = Canal.objects.get(id_u=user_ctx.id)
+		return {'user_canal': user_canal, 'user_ctx':user_ctx}
+	except Canal.DoesNotExist:
+		user_canal = None
+		return {'user_canal': user_canal, 'user_ctx':user_ctx}
 
 def sugerencias(request):
 	r=random.randrange(1,10)

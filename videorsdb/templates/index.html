@@ -8,28 +8,30 @@
 		{% include "includes/aside-right.html" %}
       <div class="container-owner">
       		{% if user.is_authenticated %}
-      			<div class="reco">
-      				<div class="collection margin-collection collection-size">
-      	  				<h2><a href="#" class="collection-item a-font-h2 a-size-collection">Mirar de nuevo</a></h2>
-      	  			</div>
-      	  			<div class="row">
-      	  				{% for recouser in ureco %}
-	      	  				<div class="col s12 m7 l3">
-		      					<div class="card">
-	            					<div class="card-image">
-	              						<img src="http://materializecss.com/images/sample-1.jpg">
-	            					</div>
-					            	<div class="card-content">
-					              		<p>{{ recouser.id_v.nombre_video|cortar }}</p>
-					            	</div>
-						            <div class="card-action">
-						              	<a href="{% url 'vervideo' %}?v={{recouser.id_v.cod_video}}">Ver</a>
-						            </div>
-	          					</div>
-		      				</div>
-	      				{% endfor %}
-      	  			</div>
-      			</div>
+      			{% if ureco %}
+	      			<div class="reco">
+	      				<div class="collection margin-collection collection-size">
+	      	  				<h2><a href="#" class="collection-item a-font-h2 a-size-collection">Mirar de nuevo</a></h2>
+	      	  			</div>
+	      	  			<div class="row">
+	      	  				{% for recouser in ureco %}
+		      	  				<div class="col s12 m7 l3">
+			      					<div class="card">
+		            					<div class="card-image">
+		              						<img src="http://materializecss.com/images/sample-1.jpg">
+		            					</div>
+						            	<div class="card-content">
+						              		<p>{{ recouser.id_v.nombre_video|cortar }}</p>
+						            	</div>
+							            <div class="card-action">
+							              	<a href="{% url 'vervideo' %}?v={{recouser.id_v.cod_video}}">Ver</a>
+							            </div>
+		          					</div>
+			      				</div>
+		      				{% endfor %}
+	      	  			</div>
+	      			</div>
+      			{% endif %}
       		{% endif %}
       		<div class="reco">
       			<div class="collection margin-collection collection-size">

@@ -12,9 +12,13 @@
 					        	<img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle responsive-img img-user-center"> <!-- notice the "circle" class -->
 					     	</div>
 	      				</li>
-	      				<li class="margin-li"><a href="#" class="waves-effect waves-light btn a-width">Subcripciones</a></li>
-	      				<li class="margin-li"><a href="{% url 'channel' user_canal.codigo_canal %}" class="waves-effect waves-light btn a-width">Mi canal</a></li>
-	      				<li class="margin-li"><a href="#" class="waves-effect waves-light btn a-width">Favoritos</a></li>
+		      				<li class="margin-li"><a href="#" class="waves-effect waves-light btn a-width">Subcripciones</a></li>
+		      				{% if user_canal %}
+		      					<li class="margin-li"><a href="{% url 'channel' user_canal.codigo_canal %}" class="waves-effect waves-light btn a-width">Mi canal</a></li>
+		      				{% else %}
+		      					<li class="margin-li"><a href="{% url 'crearcanal' %}" class="waves-effect waves-light btn a-width">Crear canal</a></li>
+		      				{% endif %}
+		      				<li class="margin-li"><a href="#" class="waves-effect waves-light btn a-width">Favoritos</a></li>
       				</ul>
 		      		<ul class="collection with-header">
 				        <li class="collection-header"><h2>Subscripciones</h2></li>
