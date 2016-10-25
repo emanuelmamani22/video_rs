@@ -7,12 +7,12 @@ from django.utils.dateparse import parse_time
 from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
 
 class RegistroUserForm(forms.Form):
-     namefirst = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'first_name'}))
-     namelast = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'last_name'}))
-     username = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'username'}))
-     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'validate', 'id': 'email'}))
-     password = forms.CharField(min_length=5, widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'password'}))
-     passworddos = forms.CharField(widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'passworddos'}))
+     namefirst = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'first_name'}), error_messages={'required': 'Nombre obligatorio'})
+     namelast = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'last_name'}), error_messages={'required': 'Apellido obligatorio'})
+     username = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'username'}), error_messages={'required': 'Nombre de usuario obligatorio'})
+     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'validate', 'id': 'email'}), error_messages={'required': 'Email obligatorio'})
+     password = forms.CharField(min_length=5, widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'password'}), error_messages={'required': 'Password obligatorio'})
+     passworddos = forms.CharField(widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'passworddos'}), error_messages={'required': 'Debe repetir el password'})
 
      def clean_username(self):
        user_name = self.cleaned_data['username']
