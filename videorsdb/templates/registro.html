@@ -21,6 +21,9 @@
             </div>
             <div class="row">
               <div class="input-field col s12">
+                {% if form.username.errors %}
+                  {{ form.username.errors }}
+                {% endif %}
               	{{ form.username }}
                 <label for="username">Username</label>
               </div>
