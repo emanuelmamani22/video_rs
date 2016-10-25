@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Registro{% endblock %}
 {% block content %}
-<div class="login-container">
+<div class="register-container">
 	<div class="row">
 		<div class="col s12">
               <h1 class="center-align h1-login">Unete a nosotros</h1>
@@ -9,29 +9,43 @@
 	</div>
 	<div class="row">
 		<form action="" method="post" enctype="" class="col s12">{% csrf_token %}
-			<div class="row">
+			       <div class="row">
               <div class="input-field col s6">
               	{{ form.namefirst }}
-                <label for="first_name">First Name</label>
+                {% if form.namefirst.errors %}
+                  <label for="first_name">{{ form.namefirst.errors }}</label>
+                {% else %}
+                  <label for="first_name">First Name</label>
+                {% endif %}
               </div>
+             
               <div class="input-field col s6">
                 {{ form.namelast }}
-                <label for="last_name">Last Name</label>
+                {% if form.namelast.errors %}
+                  <label for="last_name">{{ form.namelast.errors }}</label>
+                {% else %}
+                  <label for="last_name">Last Name</label>
+                {% endif %}
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
+                {{ form.username }}
                 {% if form.username.errors %}
-                  {{ form.username.errors }}
+                  <label for="username">{{ form.username.errors }}</label>
+                {% else %}
+                  <label for="username">Username</label>
                 {% endif %}
-              	{{ form.username }}
-                <label for="username">Username</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 {{ form.email }}
-                <label for="email">Email</label>
+                {% if form.email.errors %}
+                  <label for="email">{{ form.email.errors }}</label>
+                {% else %}
+                  <label for="email">Email</label>
+                {% endif %}
               </div>
             </div>
             <div class="row">
@@ -43,7 +57,11 @@
             <div class="row">
               <div class="input-field col s12">
                 {{ form.passworddos }}
-                <label for="passworddos">Repetir Password</label>
+                {% if form.passworddos.errors %}
+                  <label for="passworddos">{{ form.passworddos.errors }}</label>
+                {% else %}
+                  <label for="passworddos">Repetir Password</label>
+                {% endif %}
               </div>
             </div>
             <button class="btn waves-effect waves-light" type="submit" name="action">
