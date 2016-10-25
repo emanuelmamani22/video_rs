@@ -34,8 +34,8 @@ class RegistroUserForm(forms.Form):
        return user_passdos
 
 class login_user(forms.Form):
-     username = forms.CharField(min_length=5)
-     password = forms.CharField(min_length=5, widget=forms.PasswordInput())
+     username = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'username'}), error_messages={'required': 'Indica tu nombre de usuario'})
+     password = forms.CharField(min_length=5, widget=forms.PasswordInput(attrs={'class':'validate', 'id': 'first_name'}), error_messages={'required': 'Indica el password'})
 
 class crear_canal(forms.Form):
      nombre_canal = forms.CharField(min_length=5)

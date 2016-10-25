@@ -1,11 +1,42 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<h1>Login de Usuario</h1>
-	{% if messages %} 
-	{% endif %}
-        <form action="" method="post" enctype="">{% csrf_token %} 
-            {{ form.as_table }} 
-            <input type="submit" value="Enviar"> 
-        </form>
+{% if messages %}
+	{{messages}} 
+{% endif %}
+<div class="login-container">
+	<div class="row">
+        <div class="col s12">
+            <h1 class="center-align h1-login">Logueate</h1>
+        </div>
+    </div>
+    <div class="row">
+          <form class="col s12" action="" method="post" enctype="">{% csrf_token %} 
+            <div class="row">
+              <div class="input-field col s12">
+                {{ form.username }}
+                {% if form.username.errors %}
+                  <label for="username">{{ form.username.errors }}</label>
+                {% else %}
+                  <label for="username">Username</label>
+                {% endif %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                {{ form.password }}
+                {% if form.password.errors %}
+                  <label for="password">{{ form.password.errors }}</label>
+                {% else %}
+                  <label for="password">Password</label>
+                {% endif %}
+              </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+              Loguearse
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
+        </div>
+</div>
 {% endblock %}
