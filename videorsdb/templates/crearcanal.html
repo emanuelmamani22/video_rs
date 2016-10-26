@@ -19,7 +19,7 @@
 	        </div> 
 		{% endif %}
 		<div class="row">
-        	<form action="" method="post" enctype="" class="col s12">{% csrf_token %}
+        	<form action="" method="post" enctype="multipart/form-data" class="col s12">{% csrf_token %}
         	<div class="row">
         		<div class="input-field col s12">
         			{{ form.nombre_canal }}

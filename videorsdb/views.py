@@ -88,15 +88,17 @@ def logout_views(request):
     logout(request)    
     return redirect('index')
 
-def cretechanell(request):
+def cretechannel(request):
     if request.user.is_authenticated():
       if request.method == 'POST':
-         form = crear_canal(request.POST)
+         form = crear_canal(request.POST, request.FILES)
          if form.is_valid():
            nombre_canal = request.POST['nombre_canal']
            cod = calcular_codigo(20)
            usuario = request.user
-           canal = Canal(codigo_canal=cod, nombre=nombre_canal, id_u=usuario)
+           descripcion = request.POST['descripcion']
+           portada = request.FILES['portada']
+           canal = Canal(codigo_canal=cod, nombre=nombre_canal, id_u=usuario, descripcion_canal=descripcion, portada=portada)
            canal.save()
            
            return HttpResponseRedirect('/')
