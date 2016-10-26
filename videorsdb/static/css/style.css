@@ -231,3 +231,9 @@ p{
 .h1-login{
 	font-size: 2.1rem;
 }
+
+/* up_video.html */
+input[name="file-video"]::-webkit-input-placeholder, input[name="file-miniatura"]::-webkit-input-placeholder{ /* Firefox 18- */
+   color: #757575;
+   font-weight: bold; 
+}

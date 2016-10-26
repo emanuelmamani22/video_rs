@@ -2,17 +2,86 @@
 {% block title %}Subir video{% endblock %}
 {% block content %}
 {% if user.is_authenticated %} 
-  <p>Bienvenido, {{ user.username }}. Gracias por identificarte. <a href="{% url 'logout' %}">Log out</a></p>
-
-
-  <h1>Subir video</h1>
-	{% if form.error %} 
-	{% endif %} 
-      <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ form }}
-             <input type="submit" value="Enviar">
-      </form>
+  	  <div class="up-video-contaienr">
+  	      <div class="row">
+		        <div class="col s12">
+		            <h1 class="center-align h1-login">Subir Nuevo video</h1>
+		        </div>
+		  </div>
+		  {% if form.miniatura_video.errors %}
+			<div class="row">
+	          <div class="col l12">
+	            <div class="card">
+	              <div class="card-content">
+	                {{ form.miniatura_video.errors }}
+	              </div>
+	            </div>
+	          </div>
+	        </div> 
+		  {% endif %}
+		  {% if form.archivo_video.errors %}
+			<div class="row">
+	          <div class="col l12">
+	            <div class="card">
+	              <div class="card-content">
+	                {{ form.archivo_video.errors }}
+	              </div>
+	            </div>
+	          </div>
+	        </div> 
+		  {% endif %}
+  	  	  <div class="row">
+		      <form action="" method="post" enctype="multipart/form-data" class="col s12">{% csrf_token %}
+		            <div class="row">
+		        		<div class="input-field col s12">
+		        			{{ form.nombre_video }}
+		        			{% if form.nombre_video.errors %}
+			                  <label for="id_nombre_video">{{ form.nombre_video.errors }}</label>
+			                {% else %}
+			                  <label for="id_nombre_video">Nombre del Video</label>
+			                {% endif %}
+		        	</div>
+		        	<div class="row">
+		        		<div class="file-field input-field col s12">
+					      <div class="btn">
+					        <span>Video</span>
+					        {{ form.archivo_video }}
+					      </div>
+					      <div class="file-path-wrapper">
+					        <input class="file-path validate" type="text" name="file-video" placeholder="Selecciona un video">
+					      </div>
+					    </div>
+		        	</div>
+		        	<div class="row">
+		        		<div class="file-field input-field col s12">
+					      <div class="btn">
+					        <span>Miniatura</span>
+					        {{ form.miniatura_video }}
+					      </div>
+					      <div class="file-path-wrapper">
+					        <input class="file-path validate" type="text" name="file-miniatura" placeholder="Miniatura del video">
+					      </div>
+					    </div>
+		        	</div>
+		        	<div class="row">
+		        		<div class="input-field col s12">
+						    {{ form.video_tag }}
+						    <label for="video_tag">Seleccionar Tag</label>
+						</div>
+		        	</div>
+		            <button class="btn waves-effect waves-light" type="submit" name="action">
+		              Subir Video
+		              <i class="material-icons right">send</i>
+		            </button>
+		      </form>
+	      </div>
+      </div>
 {% else %} 
   <p>Bienvenido, nuevo usuario. Por favor identifícate.</p> 
 {% endif %}
+{% endblock %}
+{% block contentjs %}
+	$(document).ready(function() {
+    $('select').material_select();
+  });
 {% endblock %}
