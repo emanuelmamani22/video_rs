@@ -27,6 +27,7 @@ class UploadVideo(models.Model):
     video_file = models.FileField(upload_to='video/', max_length=200)
     id_c = models.ForeignKey(Canal)
     id_tag = models.ForeignKey(Tagvideo)
+    miniatura_video = models.FileField(upload_to='miniatura/', max_length=200, blank=True)
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
