@@ -43,9 +43,10 @@ class crear_canal(forms.Form):
      descripcion = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'crear_canal'}), error_messages={'required': 'Es necesario que des una descripcion de tu canal'})
 
 class subirvideo(forms.Form):
-    nombre_video = forms.CharField(min_length=5)
-    archivo_video = forms.FileField()
+    nombre_video = forms.CharField(min_length=5, error_messages={'required': 'Agrega un nombre al video'})
+    archivo_video = forms.FileField(error_messages={'required': 'Selecciona un video'})
     video_tag = forms.ChoiceField(widget=forms.Select(),choices=choice_tag())
+    miniatura_video = forms.FileField(error_messages={'required': 'Es necesario que agregues una miniatura'})
 
     def clean_archivo_video(self):
       file_f = self.cleaned_data['archivo_video']
