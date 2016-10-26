@@ -39,6 +39,8 @@ class login_user(forms.Form):
 
 class crear_canal(forms.Form):
      nombre_canal = forms.CharField(min_length=5)
+     portada = forms.FileField()
+     descripcion = forms.CharField(min_length=5)
 
 class subirvideo(forms.Form):
     nombre_video = forms.CharField(min_length=5)

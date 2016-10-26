@@ -14,6 +14,8 @@ class Canal(models.Model):
     codigo_canal = models.CharField(blank=True, max_length=20)
     nombre = models.CharField(max_length=70)
     id_u = models.ForeignKey(User)
+    portada = models.FileField(upload_to='portada/', max_length=200, blank=True)
+    descripcion_canal = models.CharField(max_length=500, blank=True)
 
     def __unicode__(self):
        return self.nombre
