@@ -39,7 +39,7 @@ class login_user(forms.Form):
 
 class crear_canal(forms.Form):
      nombre_canal = forms.CharField(min_length=5,widget=forms.TextInput(attrs={'class':'validate', 'id': 'crear_canal'}), error_messages={'required': 'Escribe el nombre del canal'})
-     portada = forms.FileField()
+     portada = forms.FileField(error_messages={'required': 'Es necesario que agregues una portada'})
      descripcion = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'crear_canal'}), error_messages={'required': 'Es necesario que des una descripcion de tu canal'})
 
 class subirvideo(forms.Form):
