@@ -117,10 +117,11 @@ def up_video(request):
           namevideo = request.POST['nombre_video']
           video_archivo = request.FILES['archivo_video']
           tag_video = request.POST['video_tag']
+          miniatura_video = request.FILES['miniatura_video']
           q = Tagvideo.objects.get(id_tag=int(tag_video))
           canal = Canal.objects.get(id_u=request.user)
           cod = calcular_codigo(11)
-          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_c=canal, id_tag=q)
+          video = UploadVideo(cod_video=cod, nombre_video=namevideo, video_file=video_archivo, id_c=canal, id_tag=q, miniatura_video=miniatura_video)
           video.save()
 
           return HttpResponseRedirect('/')
