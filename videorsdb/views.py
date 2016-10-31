@@ -274,4 +274,4 @@ def nomegusta_ajax(request):
 def resultado(request):
 	x = request.GET.get('search_query','')
 	q = UploadVideo.objects.filter(nombre_video__contains=x)
-	return render(request, 'resultado.html', {'q':q})
+	return render(request, 'resultado.html', {'q':q}, context_instance=RequestContext(request, processors=[canal_user, subcripciones_user]))

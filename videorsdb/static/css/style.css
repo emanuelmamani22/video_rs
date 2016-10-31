@@ -237,3 +237,15 @@ input[name="file-video"]::-webkit-input-placeholder, input[name="file-miniatura"
    color: #757575;
    font-weight: bold; 
 }
+
+/* resulta.html */
+.resultado-video li{
+	width: 100%;
+}
+
+.resultado-video{
+	margin-top: 4px;
+}
+.margin-resultado{
+	margin-top: 0;
+}

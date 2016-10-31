@@ -2,18 +2,28 @@
 {% block title %}Inicio{% endblock %}
 {% block propio %}{% endblock %}
 {% block content %}
-
-
-{% if not user.is_authenticated %}
-		<a href="{% url 'login' %}">Login</a><br>
-		{% endif %}
-		{% if user.is_authenticated %}
-		<a href="{% url 'logout' %}">logout</a>
-		<a href="{% url 'subirvideo' %}">Subir video</a>
-{% endif %}
-	
-
-	{% for query in  q %}
-	<h1>{{ query.nombre_video }}</h1><br>
-	{% endfor %}
+<div class="resultado-video">
+	<div class="row">
+		<div class="col l3">
+			{% include "includes/aside-right.html" %}
+		</div>
+		<div class="col l9">
+			<div class="row">
+				<div class="col l12">
+					<ul class="collection margin-resultado">
+						{% for query in  q %}
+						    <li class="collection-item avatar">
+						      <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
+						      <span class="title"><a href="{% url 'vervideo' %}?v={{query.cod_video}}">{{query.nombre_video}}</a></span>
+						      <p><a href="{% url 'channel' query.id_c.codigo_canal %}">{{ query.id_c.nombre }}</a> <br>
+						         Second Line
+						      </p>
+						    </li>
+					    {% endfor %}
+					  </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
