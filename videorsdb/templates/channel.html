@@ -1,16 +1,66 @@
 {% extends "base.html" %}
+{% load etiquetas_tag %}
 {% block title %}{{q.nombre}}{% endblock %}
 {% block content %}
-<h1>{{q.nombre}}</h1>
-<form action="" method="post">{% csrf_token %}
-	<input type="submit" value="Suscribirse">
-</form>
+<div class="main-canal">
+	{% include "includes/aside-right.html" %}
+	<div class="canal-container">
+		<div class="header-canal">
+			<div class="row">
+              <div class="col s12 m5 l12">
+                <div class="card margin-card">
+                  <div class="card-image">
+                    <img src="https://yt3.ggpht.com/-slcFkbdSYNk/Vpx2_p5OCfI/AAAAAAAABQk/AXPEofO3X3Y/w1060-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no/Thumbnail%2BYoutube%2B2016.jpg" class="img-height">
+                  </div>
+                  <div class="card-content">
+                    <span class="card-title "><strong>{{ q.nombre }}</strong></span>
+                    <form action="" method="post" class="config">{% csrf_token %}
+						<button type="submit" class="waves-effect waves-light btn">Suscribirse</button>
+					</form>
+                  </div>
+                  <div class="card-content">
+                    <nav>
+                      <div class="nav-wrapper">
+                        <ul id="nav-mobile" class="left hide-on-med-and-down">
+                          <li class="active"><a href="#">Videos</a></li>
+                          <li><a href="#">Subscriptores</a></li>
+                          <li><a href="#">Lista de Reproducion</a></li>
+                          <li><a href="#">Canales</a></li>
+                          <li><a href="#">Debate</a></li>
+                        </ul>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+		</div>
+		<div class="video-canal">
+			<div class="row">
+				{% if z %} 
+					{% for m in z %}
+		              <div class="col s12 m7 l3">
+		                <div class="card">
+		                  <div class="card-image">
+		                    <img src="http://materializecss.com/images/sample-1.jpg">
+		                  </div>
+		                  <div class="card-content">
+		                    <p>{{ m.nombre_video|cortar }}</p>
+		                  </div>
+		                  <div class="card-action">
+		                    <a href="{% url 'vervideo' %}?v={{ m.cod_video }}">Ver</a>
+		                  </div>
+		                </div>
+		              </div>
+		            {% endfor %}
+	            {% else %}
+	            	<div class="col s12 m7 l3">
+		                Este canal no tiene video
+		            </div>
+	            {% endif %}
+            </div>
+		</div>
 
-{% if z %} 
-    {% for m in z %}
-    	<a href="{% url 'vervideo' %}?v={{m.cod_video}}">{{m.nombre_video}}</a><br>
-	{% endfor %} 
-{% else %} 
-        Este canal no tiene video
-{% endif %}
+	</div>
+</div>
 {% endblock %}

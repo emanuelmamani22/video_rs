@@ -158,17 +158,17 @@ def viewchannel(request, channel):
 				try :
 					s = Subcriptores.objects.get(id_u=y.id, id_c=q.id_canal)
 					s.delete()
-					return render(request, 'channel.html', {'q':q, 'z':z})
+					return render(request, 'channel.html', {'q':q, 'z':z}, context_instance=RequestContext(request, processors=[canal_user, subcripciones_user]))
 				except Subcriptores.DoesNotExist:
 					r = Canal.objects.get(id_canal=q.id_canal)
 					s = Subcriptores(id_c=r, id_u=u)
 					s.save()
 
-					return render(request, 'channel.html', {'q':q, 'z':z})
+					return render(request, 'channel.html', {'q':q, 'z':z}, context_instance=RequestContext(request, processors=[canal_user, subcripciones_user]))
 			else :
 				return HttpResponseRedirect('/login')
 		else :
-			return render(request, 'channel.html', {'q':q, 'z':z})
+			return render(request, 'channel.html', {'q':q, 'z':z}, context_instance=RequestContext(request, processors=[canal_user, subcripciones_user]))
 
 def deletevideo(request, delete):
 	if request.user.is_authenticated():
