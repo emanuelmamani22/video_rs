@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import magic
 from .funciones import choice_tag, getLength
 import re
+from PIL import Image
 
 class RegistroUserForm(forms.Form):
      namefirst = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'first_name'}), error_messages={'required': 'Nombre obligatorio'})
@@ -63,6 +64,22 @@ class subirvideo(forms.Form):
       except AttributeError:
           raise forms.ValidationError('Error inesperado intentelo de nuevo.')
       return file_f
+
+    def clean_miniatura_video(self):
+      miniatura_f = self.cleaned_data['miniatura_video']
+      mime = magic.from_buffer(miniatura_f.read(), mime=True)
+      if mime != 'image/jpeg':
+        raise forms.ValidationError('Sube un miniatura jpeg.')
+      
+      file_i = miniatura_f.temporary_file_path()
+      im=Image.open(file_i)
+      size_img = im.size
+
+      if size_img[0] != 260:
+        raise forms.ValidationError('La miniatura del video debe ser de 260px de ancho.')
+
+      if size_img[1] != 146:
+        raise forms.ValidationError('La miniatura del video debe ser de 146px de alto.')
 
 class comentario_form(forms.Form):
   comentario = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea', 'placeholder':'Escribe un comentario'}))
