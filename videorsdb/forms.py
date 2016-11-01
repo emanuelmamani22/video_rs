@@ -2,9 +2,8 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 import magic
-from .funciones import choice_tag
-from django.utils.dateparse import parse_time
-from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
+from .funciones import choice_tag, getLength
+import re
 
 class RegistroUserForm(forms.Form):
      namefirst = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'first_name'}), error_messages={'required': 'Nombre obligatorio'})
@@ -54,14 +53,16 @@ class subirvideo(forms.Form):
       if mime != 'video/mp4':
         raise forms.ValidationError('Sube un archivo de MP4.')
 
-      #a = UploadedFile(file_f)
-      #print a._get_name()
-      #print a.content_type
-      #b = TemporaryUploadedFile(a.name, a.content_type, a.size, a.charset)
-      #print b.temporary_file_path()
-      #print parse_time(b.temporary_file_path())
-      #raw_input("Pulsa una tecla para continuar...") 
-      #return file_f
+      file_v = file_f.temporary_file_path()
+      a = getLength(file_v)
+      try:
+          url = re.search('  Duration: ([^/]{8,11}),', a[0]).group(1)
+          print url
+          if url > '00:15:00' :
+              raise forms.ValidationError('El video no puede durar mas de 15 minutos.')
+      except AttributeError:
+          raise forms.ValidationError('Error inesperado intentelo de nuevo.')
+      return file_f
 
 class comentario_form(forms.Form):
   comentario = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea', 'placeholder':'Escribe un comentario'}))

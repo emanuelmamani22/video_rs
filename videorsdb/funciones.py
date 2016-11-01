@@ -1,9 +1,8 @@
 import random
 from .models import UploadVideo, Tagvideo, Canal, Likeanddislike
 import subprocess
-import subprocess32 as sp
+import os
 import json
-from ffprobe import FFProbe
 
 def calcular_codigo(contar):
     a=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','_','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','-','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
@@ -36,3 +35,7 @@ def likeanddislikedelete(q, y):
 def dislikesave(q, y):
   ds = Likeanddislike(megusta=False, nomegusta=True, id_v=q, id_u=y)
   ds.save()
+
+def getLength(filename):
+  result = subprocess.Popen(["ffprobe", "-i", filename], stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+  return [x for x in result.stdout.readlines() if "Duration" in x]
