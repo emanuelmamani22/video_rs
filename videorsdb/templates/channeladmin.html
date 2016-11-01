@@ -13,7 +13,7 @@
               <div class="col s12 m5 l12">
                 <div class="card margin-card">
                   <div class="card-image">
-                    <img src="https://yt3.ggpht.com/-slcFkbdSYNk/Vpx2_p5OCfI/AAAAAAAABQk/AXPEofO3X3Y/w1060-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no/Thumbnail%2BYoutube%2B2016.jpg" class="img-height">
+                    <img src="{{ MEDIA_URL }}{{ user_canal.portada }}" class="img-height">
                   </div>
                   <div class="card-content">
                     <span class="card-title "><strong>{{ user_canal.nombre }}</strong></span>
@@ -43,7 +43,7 @@
 		              <div class="col s12 m7 l3">
 		                <div class="card">
 		                  <div class="card-image">
-		                    <img src="http://materializecss.com/images/sample-1.jpg">
+		                    <img src="{{ MEDIA_URL }}{{ m.miniatura_video }}">
 		                  </div>
 		                  <div class="card-content">
 		                    <p>{{ m.nombre_video|cortar }}</p>

@@ -13,7 +13,7 @@
 					<ul class="collection margin-resultado">
 						{% for query in  q %}
 						    <li class="collection-item avatar">
-						      <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
+						      <img src="{{ MEDIA_URL }}{{ query.miniatura_video }}" alt="" class="circle">
 						      <span class="title"><a href="{% url 'vervideo' %}?v={{query.cod_video}}">{{query.nombre_video}}</a></span>
 						      <p><a href="{% url 'channel' query.id_c.codigo_canal %}">{{ query.id_c.nombre }}</a> <br>
 						         Second Line
