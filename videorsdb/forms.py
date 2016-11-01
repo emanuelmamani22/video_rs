@@ -42,6 +42,25 @@ class crear_canal(forms.Form):
      portada = forms.FileField(error_messages={'required': 'Es necesario que agregues una portada'})
      descripcion = forms.CharField(min_length=5, widget=forms.TextInput(attrs={'class':'validate', 'id': 'crear_canal'}), error_messages={'required': 'Es necesario que des una descripcion de tu canal'})
 
+     def clean_portada(self):
+       portada_f = self.cleaned_data['portada']
+       mime = magic.from_buffer(portada_f.read(), mime=True)
+       if mime != 'image/jpeg':
+         raise forms.ValidationError('Sube un portada jpeg.')
+
+       #file_p = portada_f.temporary_file_path()
+       im=Image.open(portada_f)
+       size_img = im.size
+
+       if size_img[0] != 2120:
+         raise forms.ValidationError('La portada del canal debe ser de 2120px de ancho.')
+
+       if size_img[1] != 351:
+         raise forms.ValidationError('La portada del canal debe ser de 351px de alto.')
+
+       return portada_f
+
+
 class subirvideo(forms.Form):
     nombre_video = forms.CharField(min_length=5, error_messages={'required': 'Agrega un nombre al video'})
     archivo_video = forms.FileField(error_messages={'required': 'Selecciona un video'})
