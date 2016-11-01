@@ -33,28 +33,30 @@
 	      			</div>
       			{% endif %}
       		{% endif %}
-      		<div class="reco">
-      			<div class="collection margin-collection collection-size">
-      	  			<h2><a href="#" class="collection-item a-font-h2 a-size-collection">{{ name_q }}</a></h2>
-      	  		</div>
-      	  		<div class="row">
-      	  			{% for query in  q %}
-	      	  			<div class="col s12 m7 l3">
-		      				<div class="card">
-		            			<div class="card-image">
-		              				<img src="http://materializecss.com/images/sample-1.jpg">
-		            			</div>
-				            	<div class="card-content padding-title">
-				              		<p>{{ query.nombre_video|cortar }}</p>
-				            	</div>
-				            	<div class="card-action">
-				              		<a href="{% url 'vervideo' %}?v={{query.cod_video}}">Ver</a>
-				            	</div>
-	          				</div>
-		      			</div>
-	      			{% endfor %}
-      	  		</div>
-      		</div>
+      		{% if q %}
+	      		<div class="reco">
+	      			<div class="collection margin-collection collection-size">
+	      	  			<h2><a href="#" class="collection-item a-font-h2 a-size-collection">{{ name_q }}</a></h2>
+	      	  		</div>
+	      	  		<div class="row">
+		      	  			{% for query in  q %}
+			      	  			<div class="col s12 m7 l3">
+				      				<div class="card">
+				            			<div class="card-image">
+				              				<img src="http://materializecss.com/images/sample-1.jpg">
+				            			</div>
+						            	<div class="card-content padding-title">
+						              		<p>{{ query.nombre_video|cortar }}</p>
+						            	</div>
+						            	<div class="card-action">
+						              		<a href="{% url 'vervideo' %}?v={{query.cod_video}}">Ver</a>
+						            	</div>
+			          				</div>
+				      			</div>
+			      			{% endfor %}
+      	  			</div>
+      			</div>
+      		{% endif %}
       </div>
 </div>
 	
